@@ -34,7 +34,7 @@ const user = require('./routes/userRoute')
 
 
 //ROUTER MIDDLEWALRE-------------------------------
-app.use("/api/v1",home)
+app.use("/",home)
 app.use("/api/v1",user)
 
 
