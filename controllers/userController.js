@@ -128,7 +128,7 @@ exports.logout = (req,res) => {
         })
 
         //send success status
-        res.status(200).redirect('/api/v1')
+        res.status(200).redirect('/')
 
     } catch (error) {
         console.log(error)
