@@ -1,0 +1,585 @@
+openapi: 3.0.0
+info: 
+  title: ExpressAuth API.
+  description: Welcome to ExpressAuth API documentation. ExpressAuth is a simple application for user authentication and authorization system to provide secure user login and registration functionalities. Built using the Express.js framework, this application allows users to create accounts, authenticate their identities, and securely access protected routes.
+  version: 1.0.0
+  contact: 
+    email: vishalkumar.singh12@yahoo.com
+
+servers:
+  - url: "{protocol}://{url}/api/{version}"
+    description:  
+    variables:
+      version:
+        enum:
+          - v1
+        default: v1
+      url:
+        enum:
+          - localhost:4000
+          - liveurl
+        default: localhost:4000
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /:
+    get:
+      tags:
+        - Home
+      summary: Returns the login/signup page
+      responses:
+        200:
+          description: All good success
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+    
+  /user/signup:
+    post:
+      tags:
+        - User
+      summary: Signup a new user. Required fields are - name, email, contact number, password. Uploading profile photo is optional.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - contact
+                - password
+              properties:
+                name:
+                  type: string
+                  required: true
+                email:
+                  type: string
+                password:
+                  type: string
+                contact:
+                  type: string
+                photo:
+                  in: formData
+                  description: The uploaded file data
+                  type: file
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      photo:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/login:
+    post:
+      tags:
+        - User
+      summary: Login an existing user. Required fields are email and password. On successful login the server sends a cookie token and adds httpOnly cookie in browser.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      photo:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/dashboard:
+    get:
+      tags:
+        - User
+      summary: A dashboard page where user is redirected to after login. From dashboard user can get details, update details, change password and logout.
+      requestBody:
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /user/logout:
+    get:
+      tags:
+        - User
+      summary: Send a GET request to log out the user and delete the httpOnly cookies.
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/forgotpassword:
+    post:
+      tags:
+        - User
+      summary: Sends an email containing a link for password reset, including a token for user validation. Note that user will not receive any email in the inbox since the application is using free version of mailtrap. Use your own SMTP details for the same.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/password/reset/{token}:
+    post:
+      tags:
+        - User
+      summary: Allows user to reset password, validated based on token. Requires new password and confirm password fields.
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - newPassword
+                - confirmPassword
+              properties:
+                newPassword:
+                  type: string
+                confirmPassword:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      photo:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/profile:
+    get:
+      tags:
+        - User
+      summary: Gets all details about logged in user.
+      requestBody:
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      photo:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+  /user/password/update:
+    post:
+      tags:
+        - User
+      summary: While logged in the user can update the password. Required fields are old password, new password and confirm password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currentPassword
+                - newPassword
+                - Confirmpassword
+              properties:
+                currentPassword:
+                  type: string
+                newPassword:
+                  type: string
+                confirmPassword:
+                  type: string
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      photo:
+                        type: object
+                        properties:
+                          secure_url:
+                            type: string
+                      _id:
+                        type: string
+                      createdAt:
+                        type: string
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
+
+
+  /admin/dashboard:
+    get:
+      tags:
+        - Admin
+      summary: A dashboard page for admin. Here admin has option to Get list of all users, Get a particular user from id, Update a user's details, Delete a user from database and Get list of all users of a particualar role.
+      requestBody:
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /admin/user/allusers:
+    get:
+      tags:
+        - Admin
+      summary: Gets a list of all users in database.
+      requestBody:
+        
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        role:
+                          type: string
+                        photo:
+                          type: object
+                          properties:
+                            secure_url:
+                              type: string
+                        _id:
+                          type: string
+                        createdAt:
+                          type: string
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /admin/user/getdetails:
+    post:
+      tags:
+        - Admin
+      summary: Gets details of a particular user by email or phone number.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - contact
+              properties:
+                email:
+                  type: string
+                contact:
+                  type: string
+        
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        role:
+                          type: string
+                        photo:
+                          type: object
+                          properties:
+                            secure_url:
+                              type: string
+                        _id:
+                          type: string
+                        createdAt:
+                          type: string
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /admin/user/update:
+    post:
+      tags:
+        - Admin
+      summary: Admin can find user by id and update its email, contact or role.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  required: true
+                email:
+                  type: string
+                contact:
+                  type: string
+                role:
+                  type: string
+        
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    user:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        role:
+                          type: string
+                        photo:
+                          type: object
+                          properties:
+                            secure_url:
+                              type: string
+                        _id:
+                          type: string
+                        createdAt:
+                          type: string
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+  /admin/user/delete:
+    post:
+      tags:
+        - Admin
+      summary: Find a user by Id and delete the user from database and user's profile picture from cloudinary.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  required: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

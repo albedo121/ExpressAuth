@@ -1,0 +1,35 @@
+{
+  "name": "expressapp",
+  "name_old": "user-login-register-system",
+  "version": "1.0.0",
+  "description": "A simple project for user login and registration system which demonstrates the concept of user authentication and authorization.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "authentication",
+    "authorization"
+  ],
+  "author": "vishal singh",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.7.0",
+    "mongoose": "^8.4.4",
+    "nodemailer": "^6.9.14",
+    "swagger-ui-express": "^5.0.1",
+    "validator": "^13.12.0",
+    "yaml": "^2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

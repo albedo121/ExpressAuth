@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> ExpressAuth - Admin - Get User Details </title>
+    <link rel="stylesheet" href="/stylesheets/home_style.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+
+  <!-- Login Div -->
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="/images/user.jpg" alt=""> 
+        <div class="text">
+          <span class="text-1">GET USER DETAILS<br></span>
+          <span class="text-2">Get user details by email or phone number.</span>
+        </div>
+      </div>
+      
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">GET USER DETAILS</div>
+          <form method="post"  action="/api/v1/admin/user/getdetails">
+            <div class="input-boxes">
+
+              <!-- Email Input -->
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Enter user's email" >
+              </div>
+
+              <p style="text-align: center; margin-top: 2px;">OR</p>
+
+              <!-- Contact Input -->
+              <div class="input-box">
+                <i class="fas fa-phone fa-flip-horizontal"></i>
+                <input type="tel" name="contact" placeholder="Enter user's phone number" >
+              </div>
+              
+              
+
+              <!-- Submit Button -->
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              
+            </div>
+        </form>
+      </div>
+     
+    </div>
+    </div>
+  </div>
+</body>
+</html>

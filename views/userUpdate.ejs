@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> ExpressApp - Update Details </title>
+    <link rel="stylesheet" href="/stylesheets/home_style.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+
+  <!-- Login Div -->
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="/images/user.jpg" alt=""> 
+        <div class="text">
+          <span class="text-1">UPDATE YOUR DETAILS<br></span>
+          <span class="text-2">Update your email, contact or profile picture</span>
+        </div>
+      </div>
+      
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">UPDATE YOUR DETAILS</div>
+          <form method="post"  action="/api/v1/user/update" enctype="multipart/form-data">
+            <div class="input-boxes">
+
+
+              <!-- User Email -->
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Enter email to update">
+              </div>
+
+                <!-- User Contact -->
+                <div class="input-box">
+                  <i class="fas fa-phone-alt"></i>
+                  <input type="tel" name="contact" placeholder="Enter contact number to update">
+                </div>
+
+                <!-- Photo -->
+              <div class="input-box">
+                <i class="fas fa-file"></i>
+                <label for="photo-upload" class="file-label">Upload a profile photo.</label>
+                <input type="file" name="photo">
+              </div>
+              
+              <!-- Submit Button -->
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              
+            </div>
+        </form>
+      </div>
+     
+    </div>
+    </div>
+  </div>
+</body>
+</html>

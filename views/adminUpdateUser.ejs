@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> ExpressAuth - Admin - Update User </title>
+    <link rel="stylesheet" href="/stylesheets/home_style.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+
+  <!-- Login Div -->
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="/images/user.jpg" alt=""> 
+        <div class="text">
+          <span class="text-1">UPDATE USER DETAILS<br></span>
+          <span class="text-2">Update user's email, contact or role</span>
+        </div>
+      </div>
+      
+    </div>
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">UPDATE USER DETAILS</div>
+          <form method="post"  action="/api/v1/admin/user/update">
+            <div class="input-boxes">
+
+              <!-- User ID -->
+              <div class="input-box">
+                <i class="fas fa-portrait"></i>
+                <input type="text" name="id" placeholder="Enter user ID" required="true">
+              </div>
+
+              <!-- User Email -->
+              <div class="input-box">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" placeholder="Enter email to update">
+              </div>
+
+                <!-- User Contact -->
+                <div class="input-box">
+                  <i class="fas fa-phone-alt"></i>
+                  <input type="tel" name="contact" placeholder="Enter contact number to update">
+                </div>
+
+                 <!-- User Role -->
+                 <div class="input-box">
+                  <i class="fas fa-user-tag"></i>
+                  <input type="text" name="role" placeholder="Enter role to update">
+                </div>
+              
+              <!-- Submit Button -->
+              <div class="button input-box">
+                <input type="submit" value="Submit">
+              </div>
+              
+            </div>
+        </form>
+      </div>
+     
+    </div>
+    </div>
+  </div>
+</body>
+</html>

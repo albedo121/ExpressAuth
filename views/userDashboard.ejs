@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> ExpressAuth - User Dashboard </title>
+    <link rel="stylesheet" href="/stylesheets/home_style.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+  <!-- <hr size="3" width="100%"  color="grey"> -->
+  <!-- Right Panel -->
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <img src="/images/user.jpg" alt=""> 
+        <div class="text">
+          <span class="text-1">USER DASHBOARD<br></span>
+          <span class="text-2">Your command center awaits!</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left Panel -->
+    <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">WELCOME</div>
+
+               <!-- Get User Info button -->
+               <form method="get"  action="/api/v1/user/profile" target="_blank">
+                <div class="button input-box" style="width: 100%;">
+                <input type="submit" value="USER INFO">
+                </div> 
+               </form>
+
+               <!-- Update Details button --> 
+               <form method="get" action="/api/v1/user/update" target="_blank">
+                <div class="button input-box" style="width: 100%;">
+                <input type="submit" value="UPDATE DETAILS">
+                </div> 
+               </form>
+
+               <!-- Update Password button --> 
+               <form method="get"  action="/api/v1/user/password/update" target="_blank">
+                <div class="button input-box" style="width: 100%;">
+                <input type="submit" value="CHANGE PASSWORD">
+                </div> 
+               </form>
+
+               <!-- Logout --> 
+               <form method="get"  action="/api/v1/user/logout">
+                <div class="button input-box" style="width: 100%;">
+                <input type="submit" value="LOGOUT">
+                </div> 
+               </form>
+            
+
+            </div>
+     
+    </div>
+    </div>
+  </div>
+</body>
+</html>
