@@ -30,6 +30,14 @@ exports.signup = async (req,res) => {
         //If user found in DB then return error msg
         if(user)
             res.status(400).send('User Already exists')
+
+        //If contact number not 10 digits
+        else if(contact.length!=10)
+            res.status(400).send('Contact number should be 10 digits')
+
+        //If password is less than 6 characters
+        else if(password.length<6)
+            res.status(400).send('Password should be atleast 6 digits')
         
         //If user not found then create an entry
         else 
@@ -66,7 +74,7 @@ exports.signup = async (req,res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).render('error_500')
+        res.status(500).render(error_500)
     }
 }
 
@@ -226,6 +234,9 @@ exports.resetPassword = async (req,res) => {
             if(req.body.newPassword !== req.body.confirmPassword)
                 res.status(400).send('Password and Confirm password is not the same.')
 
+            else if(req.body.newPassword.length<6)
+                res.status(400).send('New password should be atleast 6 characters long.')
+
             else
             {
                 //Assign new password
@@ -287,6 +298,9 @@ exports.passwordUpdate = async (req,res) => {
             //If new password and confirm are not the same
             if(req.body.newPassword !== req.body.confirmPassword)
                 res.status(400).send('New password and confirm password do not match.')
+
+            else if(req.body.newPassword.length<6)
+                res.status(400).send('New password should be atleast 6 characters long')
 
             //If new password and confirm password are the same
             else
