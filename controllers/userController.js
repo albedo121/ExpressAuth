@@ -74,7 +74,7 @@ exports.signup = async (req,res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(500).render(error_500)
+        res.status(500).render('error_500')
     }
 }
 
